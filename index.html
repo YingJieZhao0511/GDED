@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Project Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── CSS Variables ─── */
+    :root {
+      --bg: #f9f8f5;
+      --surface: #ffffff;
+      --border: #e2ddd5;
+      --border-light: #ede9e2;
+      --text-primary: #1a1814;
+      --text-secondary: #4a453e;
+      --text-muted: #8a837a;
+      --accent: #2c5f8a;
+      --accent-warm: #8b4513;
+      --accent-light: #dceaf4;
+      --tag-bg: #f0f4f8;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+      --radius: 8px;
+      --radius-lg: 14px;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Source Serif 4', Georgia, serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --max-w: 820px;
+      --transition: 0.22s ease;
+    }
+
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 17px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Subtle Background Texture ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b8b0a5' fill-opacity='0.06'%3E%3Ccircle cx='1' cy='1' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+    body > * { position: relative; z-index: 1; }
+
+    /* ─── Header / Hero ─── */
+    header {
+      text-align: center;
+      padding: 80px 24px 60px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
+    }
+
+    .venue-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid #b8d4ea;
+      border-radius: 20px;
+      padding: 5px 14px;
+      margin-bottom: 28px;
+    }
+    .venue-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      max-width: 700px;
+      margin: 0 auto 14px;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      font-style: italic;
+      max-width: 560px;
+      margin: 0 auto 36px;
+    }
+
+    /* ─── Author Row ─── */
+    .authors {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px 20px;
+      margin-bottom: 32px;
+    }
+    .author {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+    .author sup {
+      font-size: 0.7em;
+      color: var(--accent);
+      font-family: var(--font-mono);
+    }
+    .author-sep { color: var(--border); }
+
+    /* ─── Affiliation Row ─── */
+    .affiliations {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px 16px;
+      margin-bottom: 36px;
+    }
+    .affiliation {
+      font-size: 0.82rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+    .affiliation sup { color: var(--accent); }
+
+    /* ─── Coming Soon Badge ─── */
+    .coming-soon-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--surface);
+      border: 1.5px dashed var(--border);
+      border-radius: 24px;
+      padding: 8px 20px;
+      margin-top: 28px;
+    }
+    .coming-soon-badge svg { opacity: 0.55; flex-shrink: 0; }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover { background: #1e4a70; border-color: #1e4a70; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border-color: #b8d4ea;
+    }
+    .btn-outline:hover { background: var(--accent-light); transform: translateY(-1px); }
+    .btn-neutral {
+      background: var(--surface);
+      color: var(--text-secondary);
+      border-color: var(--border);
+    }
+    .btn-neutral:hover { background: var(--border-light); transform: translateY(-1px); }
+
+    /* ─── Navigation ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(249, 248, 245, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+    }
+    .nav-inner a {
+      display: block;
+      padding: 14px 18px;
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all var(--transition);
+    }
+    .nav-inner a:hover, .nav-inner a.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ─── Main Layout ─── */
+    main {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ─── Section Headers ─── */
+    .section-header {
+      text-align: center;
+      padding: 64px 0 40px;
+    }
+    .section-label {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+    .section-desc {
+      margin-top: 12px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-style: italic;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ─── Abstract ─── */
+    #abstract {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      box-shadow: var(--shadow-sm);
+      margin-top: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    #abstract::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--accent) 0%, #5a9fd4 100%);
+    }
+    .abstract-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    #abstract p {
+      color: var(--text-secondary);
+      font-size: 0.97rem;
+      line-height: 1.82;
+    }
+    #abstract strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ─── Divider ─── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border-light);
+      margin: 20px 0;
+    }
+
+    /* ─── Analysis Section ─── */
+    #analysis .section-header { padding-top: 72px; }
+
+    .figure-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--transition);
+    }
+    .figure-card:hover { box-shadow: var(--shadow-md); }
+
+    .figure-caption {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-light);
+      background: #fafaf8;
+    }
+    .figure-caption-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .figure-caption p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      font-style: italic;
+    }
+
+    .figure-img-placeholder {
+      width: 100%;
+      min-height: 280px;
+      background: linear-gradient(135deg, #f0f4f8 0%, #e8edf3 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-family: var(--font-mono);
+      border-bottom: 1px solid var(--border-light);
+      position: relative;
+      overflow: hidden;
+    }
+    .figure-img-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg, transparent, transparent 10px,
+        rgba(0,0,0,0.015) 10px, rgba(0,0,0,0.015) 20px
+      );
+    }
+    .figure-img-placeholder svg {
+      opacity: 0.35;
+      z-index: 1;
+    }
+    .figure-img-placeholder span { z-index: 1; }
+
+    /* Replace placeholder with real image */
+    .figure-img {
+      width: 100%;
+      display: block;
+      object-fit: contain;
+      background: #f8f8f6;
+    }
+
+    /* ─── Table ─── */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    thead tr {
+      border-bottom: 2px solid var(--border);
+    }
+    thead th {
+      padding: 12px 16px;
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    thead th:not(:first-child) { text-align: center; }
+    tbody tr {
+      border-bottom: 1px solid var(--border-light);
+      transition: background var(--transition);
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #f8f7f4; }
+    tbody td {
+      padding: 11px 16px;
+      color: var(--text-secondary);
+    }
+    tbody td:not(:first-child) { text-align: center; font-family: var(--font-mono); font-size: 0.83rem; }
+    tbody td:first-child { color: var(--text-primary); font-weight: 500; }
+    .td-check { color: var(--accent); font-size: 1rem; }
+    .td-best { font-weight: 600; color: var(--text-primary); }
+    .td-second { text-decoration: underline; text-underline-offset: 3px; }
+    .row-highlight { background: #f0f5fa !important; }
+
+    /* ─── Samples Section ─── */
+    #samples .section-header { padding-top: 72px; }
+
+    .sample-carousel {
+      position: relative;
+    }
+    .sample-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: none;
+      animation: fadeSlide 0.35s ease;
+    }
+    .sample-card.active { display: block; }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .sample-header {
+      background: linear-gradient(135deg, #f4f7fb 0%, #eef2f8 100%);
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sample-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .sample-index {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--border-light);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .sample-body { padding: 28px; }
+
+    .sample-section-label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .transcript-block {
+      background: #f8f7f4;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 24px;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+    .transcript-block::-webkit-scrollbar { width: 4px; }
+    .transcript-block::-webkit-scrollbar-track { background: transparent; }
+    .transcript-block::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .utterance {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 8px 14px;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .utterance:last-child { margin-bottom: 0; }
+    .spk-label {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--accent);
+      padding-top: 2px;
+      white-space: nowrap;
+    }
+    .spk-label.spk2 { color: var(--accent-warm); }
+    .utt-text { color: var(--text-secondary); }
+
+    .audio-wrapper {
+      margin-bottom: 24px;
+    }
+    audio {
+      width: 100%;
+      height: 40px;
+      border-radius: 6px;
+      outline: none;
+    }
+    audio::-webkit-media-controls-panel {
+      background: #f0f4f8;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 560px) { .meta-grid { grid-template-columns: 1fr; } }
+
+    .meta-card {
+      background: #f8f7f4;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+    }
+    /* Row 1: two columns */
+    .meta-card.speaker-card,
+    .meta-card.topic-card { grid-column: auto; }
+    /* Rows 2–4: full width */
+    .meta-card.emotion-label-card,
+    .meta-card.dynamic-card,
+    .meta-card.finegrained-card { grid-column: 1 / -1; }
+
+    .meta-card-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .meta-card p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .meta-card.speaker-card  { border-left: 3px solid #6b9e6b; }
+    .meta-card.topic-card    { border-left: 3px solid #9b7ec8; }
+    .meta-card.emotion-label-card { border-left: 3px solid #e6863a; }
+    .meta-card.dynamic-card  { border-left: 3px solid #2c8a6f; }
+    .meta-card.finegrained-card { border-left: 3px solid var(--accent); }
+
+    .emotion-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      padding: 2px 10px;
+      border-radius: 12px;
+      margin: 2px 3px 2px 0;
+    }
+    .emo-happy { background: #fff3e0; color: #e67e22; border: 1px solid #fad29a; }
+    .emo-sad { background: #e8f0fe; color: #3b6bb5; border: 1px solid #b8d0f5; }
+    .emo-neutral { background: #f5f5f5; color: #666; border: 1px solid #ddd; }
+    .emo-surprise { background: #fce4ec; color: #c0392b; border: 1px solid #f5b7b1; }
+    .emo-angry { background: #fdecea; color: #c0392b; border: 1px solid #f1948a; }
+    .emo-fear { background: #f3e5f5; color: #7d3c98; border: 1px solid #d7bde2; }
+    .emo-disgust { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+
+    /* ─── Carousel Controls ─── */
+    .carousel-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .carousel-btn {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      transition: all var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+    .carousel-btn:hover { border-color: var(--accent); color: var(--accent); box-shadow: var(--shadow-md); }
+    .carousel-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .carousel-dots {
+      display: flex;
+      gap: 7px;
+    }
+    .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .dot.active { background: var(--accent); transform: scale(1.3); }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      text-align: center;
+      padding: 36px 24px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ─── Animations ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 680px) {
+      #abstract { padding: 28px 24px; }
+      .sample-body { padding: 20px; }
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════ HEADER ════════════════════════ -->
+<header>
+  <h1>GDED</h1>
+  <p class="subtitle">A Large-scale Dataset for Global Dynamic Emotion Description in Dialogue Speech</p>
+
+  <div class="coming-soon-badge">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+    Dataset will be released soon!
+  </div>
+</header>
+
+<!-- ════════════════════════ NAV ════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#abstract" class="active">Abstract</a>
+    <a href="#analysis">Analysis</a>
+    <a href="#samples">Samples</a>
+  </div>
+</nav>
+
+<!-- ════════════════════════ MAIN ════════════════════════ -->
+<main>
+
+  <!-- ── Abstract ── -->
+  <section id="abstract">
+    <div class="abstract-label">Abstract</div>
+    <p>
+      <strong>Understanding empathetic multi-turn dialogues requires accurately tracking complex emotional dynamics and capturing rich paralinguistic cues. However, existing datasets predominantly offer discrete sentence-level emotion labels (e.g., MELD) or coarse text-only summaries (e.g., SAMSum), severely limiting Multimodal Large Language Models (MLLMs) in long-context emotional reasoning. To bridge this gap, we propose GDED, the first large-scale multi-turn speech dataset featuring fine-grained natural language descriptions of dynamic emotional evolution and paralinguistic attributes.To efficiently construct GDED, we design a novel three-stage automated annotation pipeline. At its core, we propose a dynamic emotion recognition framework that integrates prompt engineering, the psychological "Peak-End Rule," and a coarse-to-fine (C2F) training strategy. Specifically, it leverages acoustic arousal to generate Causal Prompts and Trend Prompts, effectively guiding models to capture both micro-level emotion triggers and macro-level emotional shifts while alleviating context degradation. Furthermore, we extract and discretize frame-level acoustic and demographic features, ultimately fusing these multi-dimensional representations into expressive, paragraph-level captions via a Llama3-8B fine-tuned on high-quality human seed data.The resulting bilingual dataset comprises 30,730 dialogues (595 hours) and maps emotional trajectories into seven classic "Emotional Arcs" based on narrative theory. Extensive evaluations demonstrate that our annotation pipeline significantly outperforms state-of-the-art MLLMs (e.g., Qwen-Audio, Audio-Flamingo3). Moreover, downstream experiments confirm that GDED provides crucial dynamic emotional priors, substantially enhancing Emotion Recognition in Conversation (ERC) and Speech Emotion Captioning (SECap) systems.
+    </p>
+
+  </section>
+
+  <!-- ── Dataset Analysis ── -->
+  <section id="analysis">
+    <div class="section-header reveal">
+      <span class="section-label">Results & Analysis</span>
+      <h2>Dataset Analysis Overview</h2>
+      <p class="section-desc"></p>
+    </div>
+
+    <!-- Figure 1 -->
+    <!-- ★ 把 figure1.png 改成你的图片文件名 -->
+    <div class="figure-card reveal">
+      <img class="figure-img" src="/GDED/tu.png" alt="Figure 1" />
+    </div>
+
+    <!-- Figure 2 -->
+    <!-- ★ 把 figure2.png 改成你的图片文件名 -->
+    <div class="figure-card reveal">
+      <img class="figure-img" src="/GDED/biao.png" alt="Figure 2" />
+    </div>
+
+  </section>
+
+  <!-- ── Samples ── -->
+  <section id="samples">
+    <div class="section-header reveal">
+      <span class="section-label">Qualitative Examples</span>
+      <h2>Samples from GDED</h2>
+      <p class="section-desc"></p>
+    </div>
+
+    <div class="sample-carousel reveal">
+
+      <!-- Sample 1 -->
+      <div class="sample-card active" data-index="0">
+        <div class="sample-header">
+          <span class="sample-title">Sample 1</span>
+          <span class="sample-index">1 / 4</span>
+        </div>
+        <div class="sample-body">
+
+          <div class="sample-section-label">Transcript</div>
+          <div class="transcript-block">
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">I used to love playing the piano, but I just can't find the motivation anymore. [Energy=low, Pitch=high, Speed=medium]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">Why? What happened? used to be so passionate about it? [Energy=very_low, Pitch=low, Speed=medium]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">Well, I faced a lot of criticism from my family. They never believed in my talent. [Energy=low, Pitch=low, Speed=low]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">Just, really. Disheartening. Don't let their negative opinions bring you down. Keep doing what you love. [Energy=very_low, Pitch=low, Speed=low]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">It's just hard to ignore their words. Sometimes I feel like I've lost the joy I used to have. [Energy=low, Pitch=high, Speed=medium]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">Remember why you started playing in the first place? Rediscover your passion and don't let anyone hold you back. [Energy=very_low, Pitch=very_low, Speed=medium]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">You're right. I shouldn't let their opinions define my love for music. I will try to find my way back to the piano.[Energy=very_low, Pitch=very_low, Speed=low]</span>
+            </div>
+          </div>
+
+          <div class="sample-section-label">Audio</div>
+          <div class="audio-wrapper">
+            <!-- Replace src with your actual audio file path -->
+            <audio controls>
+              <source src="/GDED/sample1.wav" type="audio/wav" />
+              <source src="/GDED/sample1.mp3" type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+
+          <div class="meta-grid">
+            <div class="meta-card speaker-card">
+              <div class="meta-card-title">Speaker Information</div>
+              <p>Person 1: [Age:youth, Gender:female]; Person 2: [Age:youth, Gender:female]</p>
+            </div>
+            <div class="meta-card topic-card">
+              <div class="meta-card-title">Dialogue Topic</div>
+              <p>The speaker is struggling with a lack of motivation for playing the piano due to criticism from their family.</p>
+            </div>
+            <div class="meta-card emotion-label-card">
+              <div class="meta-card-title">Emotion Labels</div>
+              <p>
+                <span class="emotion-tag emo-sad">Sadness</span>
+                <span class="emotion-tag emo-surprise">Surprise</span>
+                <span class="emotion-tag emo-sad">Sadness</span>
+                <span class="emotion-tag emo-neutral">Neutral</span>
+                <span class="emotion-tag emo-sad">Sadness</span>
+                <span class="emotion-tag emo-neutral">Neutral</span>
+                <span class="emotion-tag emo-neutral">Neutral</span>
+              </p>
+            </div>
+            <div class="meta-card dynamic-card">
+              <div class="meta-card-title">Dynamic Emotional Atmosphere Description</div>
+              <p>The emotional atmosphere of the conversation begins with melancholy and resignation, gradually transitions through quiet empathy and heaviness, and closes with a faint sense of tentative hope and resolve.</p>
+            </div>
+            <div class="meta-card finegrained-card">
+              <div class="meta-card-title">Fine-grained Description</div>
+              <p>A young woman and her friend, both youths, engage in a heartfelt conversation about Speaker0s struggle with motivation to play the piano after facing harsh criticism from her family. The dialogue begins with Speaker 0 expressing disgust—her voice high-pitched but low in energy—as she vents her frustrations, while Speaker 1 responds neutrally, speaking in a low pitch with very little energy and a measured pace, offering quiet empathy without judgment. As the exchange continues, Speaker 0s tone shifts dramatically to one of surprise—first with medium speech rate and then slowing further—as her pitch drops low and her energy remains subdued, revealing her growing astonishment at something unexpected her friend has shared. Meanwhile, Speaker 1 maintains her calm neutrality throughout, though her consistently low pitch and minimal energy underscore deep care rather than detachment. By the final line, Speaker 0 speaks in a very low pitch and energy, yet her emotion is still labeled surprise, suggesting a dawning realization or shift in perspective. This evolution reflects a transformation in the emotional atmosphere: what starts as a disheartened, frustrated exchange gradually gives way to renewed hope, sparked by Speaker 1s gentle reminders of the joy and passion that once fueled Speaker 0s connection to music—and ultimately reawakens her resolve to reclaim that love despite familial opposition.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Sample 2 -->
+      <div class="sample-card" data-index="1">
+        <div class="sample-header">
+          <span class="sample-title">Sample 2</span>
+          <span class="sample-index">2 / 4</span>
+        </div>
+        <div class="sample-body">
+
+          <div class="sample-section-label">Transcript</div>
+          <div class="transcript-block">
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">I can't believe it's over. I thought we had something special. [Energy=very_low, Pitch=low, Speed=low]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">I know it's really hard for me too. [Energy=very_low, Pitch=low, Speed=very_low]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">What went wrong? I thought we were happy together. [Energy=low, Pitch=high, Speed=medium]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">I don't know. Maybe we just wasn't mean to be. [Energy=very_low, Pitch=very_low, Speed=very_low]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">But I still love you. I'm not ready to give up. [Energy=medium, Pitch=high, Speed=low]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">It has too much to keep trying. I think it's best if we move on. [Energy=very_low, Pitch=very_low, Speed=very_low]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">Is there anything I can do to change your mind? [Energy=low, Pitch=very_high, Speed=medium]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">I don't think so. It's better for both of us to find happiness elsewhere. [Energy=very_low, Pitch=very_low, Speed=medium]</span>
+            </div>
+          </div>
+
+          <div class="sample-section-label">Audio</div>
+          <div class="audio-wrapper">
+            <audio controls>
+              <source src="/GDED/sample2.wav" type="audio/wav" />
+              <source src="/GDED/sample2.mp3" type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+
+          <div class="meta-grid">
+            <div class="meta-card speaker-card">
+              <div class="meta-card-title">Speaker Information</div>
+              <p>Person 1: [Age:youth, Gender:female]; Person 2: [Age:youth, Gender:female]</p>
+            </div>
+            <div class="meta-card topic-card">
+              <div class="meta-card-title">Dialogue Topic</div>
+              <p>The speakers discuss the end of a relationship and their differing feelings about moving on.</p>
+            </div>
+            <div class="meta-card emotion-label-card">
+              <div class="meta-card-title">Emotion Labels</div>
+              <p>
+                <span class="emotion-tag emo-sad">Sadness</span>
+                <span class="emotion-tag emo-sad">Sadness</span>
+                <span class="emotion-tag emo-surprise">Surprise</span>
+                <span class="emotion-tag emo-sad">Sadness</span>
+                <span class="emotion-tag emo-fear">Fear</span>
+                <span class="emotion-tag emo-neutral">Neutral</span>
+                <span class="emotion-tag emo-fear">Fear</span>
+                <span class="emotion-tag emo-neutral">Neutral</span>
+              </p>
+            </div>
+            <div class="meta-card dynamic-card">
+              <div class="meta-card-title">Dynamic Emotional Atmosphere Description</div>
+              <p>The emotional atmosphere begins with deep grief and despair, intensifies through anguish and desperate longing, and ultimately settles into helplessness and resignation as the emotional tension gradually collapses into quiet sorrow.</p>
+            </div>
+            <div class="meta-card finegrained-card">
+              <div class="meta-card-title">Fine-grained Description</div>
+              <p>In a quiet, emotionally charged exchange between two young women, the conversation unfolds with subdued tones and slow, deliberate pacing, reflecting the heaviness of discussing the end of a romantic relationship. Initially, Speaker 0 speaks in a low-pitched, very-low-energy voice at a sluggish pace, her tone neutral but tinged with underlying sorrow, setting a somber mood that Speaker 1 echoes—though with a hint of surprise, conveyed through an even lower pitch, minimal energy, and extremely slow delivery. This surprise deepens when Speaker 0 suddenly raises her pitch to high while maintaining low energy and a moderate speed, signaling her own moment of astonishment at the reality theyre facing. As the dialogue continues, both remain restrained in vocal intensity—Speaker 1 returns repeatedly to a very-low pitch and energy combination, speaking slowly and neutrally until another burst of surprise interrupts the pattern, while Speaker 0 cycles between high and very-high pitches, often paired with low energy yet varying speech rates, suggesting internal tension beneath her calm exterior. Despite these subtle shifts, the overall emotional arc moves inexorably from shared melancholy and faint hope toward resigned acceptance, catalyzed by their mutual recognition that reconciliation is impossible and that continuing down this path serves only to prolong pain. Their words revolve around the struggle to let go and move forward alone, encapsulating a quiet but profound grief rooted in the loss of what could have been.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Sample 3 -->
+      <div class="sample-card" data-index="2">
+        <div class="sample-header">
+          <span class="sample-title">Sample 3</span>
+          <span class="sample-index">3 / 4</span>
+        </div>
+        <div class="sample-body">
+
+          <div class="sample-section-label">Transcript</div>
+          <div class="transcript-block">
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">家长们现在对孩子家庭教育这些越来越不重视了。 [Energy=very_high, Pitch=very_high, Speed=very_high]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">对啊，我也觉得很气愤，他们总是把责任推给学校，我完全不关心孩子的成长。 [Energy=medium, Pitch=very_high, Speed=very_high]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">没错，他们只顾工作和社交，根本没有时间陪孩子。 [Energy=high, Pitch=very_high, Speed=very_high]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">而且他们就动不动打骂的方式来教育孩子，完全不顾及孩子的感受。 [Energy=medium, Pitch=very_high, Speed=very_high]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">是啊，这样的教育方式只会让孩子变得越来越叛逆，心理健康也会受到影响的。我也很担心。 [Energy=high, Pitch=high, Speed=very_high]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">孩子会受到伤害，但是我们能做的也有限啊，毕竟我也不是他们的父母啊。 [Energy=medium, Pitch=very_high, Speed=very_high]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">嗨，可是我们可以做过的，做的还是要尽力去做，至少给孩子一些温暖和关爱吧。 [Energy=medium, Pitch=medium, Speed=medium]</span>
+            </div>   
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">哎，你说的对。我们可以尽力做一些力所能及的事情，帮助孩子们度过难关。 [Energy=low, Pitch=high, Speed=medium]</span>
+            </div>                                                         
+          </div>
+
+          <div class="sample-section-label">Audio</div>
+          <div class="audio-wrapper">
+            <audio controls>
+              <source src="/GDED/sample3.wav" type="audio/wav" />
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+
+          <div class="meta-grid">
+            <div class="meta-card speaker-card">
+              <div class="meta-card-title">Speaker Information</div>
+              <p>Person 1: [Age:middle age, Gender:female]; Person 2: [Age:middle age, Gender:female]</p>
+            </div>
+            <div class="meta-card topic-card">
+              <div class="meta-card-title">Dialogue Topic</div>
+              <p>部分家长对家庭教育重视不足，影响孩子成长。</p>
+            </div>
+            <div class="meta-card emotion-label-card">
+              <div class="meta-card-title">Emotion Labels</div>
+              <p>
+                <span class="emotion-tag emo-angry">Anger</span>
+                <span class="emotion-tag emo-angry">Anger</span>
+                <span class="emotion-tag emo-angry">Anger</span>
+                <span class="emotion-tag emo-angry">Anger</span>
+                <span class="emotion-tag emo-sad">Sadness</span>
+                <span class="emotion-tag emo-sad">Sadness</span>
+                <span class="emotion-tag emo-neutral">Neutral</span>
+                <span class="emotion-tag emo-neutral">Neutral</span>
+              </p>
+            </div>
+            <div class="meta-card dynamic-card">
+              <div class="meta-card-title">Dynamic Emotional Atmosphere Description</div>
+              <p>这段情感氛围一开始充满了强烈的愤慨与激动，随后一直保持着沮丧和集体愤怒的基调，接着逐渐变得无奈和默默的担忧，最后又平静地过渡到一种顺从的安宁以及温柔的温暖之中。</p>
+            </div>
+            <div class="meta-card finegrained-card">
+              <div class="meta-card-title">Fine-grained Description</div>
+              <p>两位中年女性围绕部分家长对家庭教育重视不足，影响孩子成长这一现象展开对话，起初Speaker 0以极高的音高、高能量与急促语速表达出强烈的惊讶情绪，似乎刚得知某件令她震惊的事关子女的事件；紧接着Speaker 7虽也用极快语速回应，却以中等能量和中性情绪试图冷静处理。但Speaker 0随即转为愤怒，音高依旧很高、语速极快，显露出对某些父母漠然态度的不满；Speaker 7再次表现出惊讶，声音虽未升级至同样激昂却难掩意外。此后Speaker 0的情绪逐渐平复，音高降低、语速放缓，转为中性态度，而Speaker 7则在最后一次发言中虽保持较高音调，但能量明显下沉、语速趋于平稳，再次流露惊讶之后透露出一种无奈与坚定——两人在交流中逐步认识到作为亲友无法改变他人价值观，只能在自身能力范围内继续支持并引导孩子，最终情绪氛围由最初的焦躁愤怒悄然过渡到理解与克制的接受。</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Sample 4 -->
+      <div class="sample-card" data-index="3">
+        <div class="sample-header">
+          <span class="sample-title">Sample 4</span>
+          <span class="sample-index">4 / 4</span>
+        </div>
+        <div class="sample-body">
+
+          <div class="sample-section-label">Transcript</div>
+          <div class="transcript-block">
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">你知道吗？我刚刚看了一个编程技术视频，我觉得好难，我好多概念都没懂。 [Energy=low, Pitch=medium, Speed=medium]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">别难过，编程技术确实有时候会让人觉得困惑，但只要坚持学习，一定能够掌握的。 [Energy=low, Pitch=medium, Speed=very_high]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">嗯，可是我觉得自己好笨啊，我怕学不会，怕自己没有天赋。 [Energy=very_low, Pitch=high, Speed=very_low]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">不要自卑，学习编程技术是一个长期的过程，没有人一开始就是专家，只要你努力去学，相信自己，你一定能够成功的。 [Energy=low, Pitch=high, Speed=high]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">你真的觉得我行吗？我现在真的好灰心啊。 [Energy=very_low, Pitch=medium, Speed=very_high]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">我相信你能行的。每个人在学习编程技术的过程中都会遇到困难和挫折。但只要你不放弃，坚持下去，一定能够克服困难，取得成功。 [Energy=low, Pitch=medium, Speed=very_high]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label">Person 1:</span>
+              <span class="utt-text">谢谢你的鼓励，我会继续努力的。 [Energy=very_low, Pitch=medium, Speed=high]</span>
+            </div>
+            <div class="utterance">
+              <span class="spk-label spk2">Person 2:</span>
+              <span class="utt-text">不客气，我相信你一定能够成功的，加油。 [Energy=medium, Pitch=high, Speed=high]</span>
+            </div>
+          </div>
+
+          <div class="sample-section-label">Audio</div>
+          <div class="audio-wrapper">
+            <audio controls>
+              <source src="/GDED/sample4.wav" type="audio/wav" />
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+
+          <div class="meta-grid">
+            <div class="meta-card speaker-card">
+              <div class="meta-card-title">Speaker Information</div>
+              <p>Person 1: [Age:youth, Gender:female]; Person 2: [Age:youth, Gender:male]</p>
+            </div>
+            <div class="meta-card topic-card">
+              <div class="meta-card-title">Dialogue Topic</div>
+              <p>学习编程技术遇到困难时如何保持信心和坚持。</p>
+            </div>
+            <div class="meta-card emotion-label-card">
+              <div class="meta-card-title">Emotion Labels</div>
+              <p>
+                <span class="emotion-tag emo-sad">Sadness</span>
+                <span class="emotion-tag emo-neutral">Neutral</span>
+                <span class="emotion-tag emo-fear">Fear</span>
+                <span class="emotion-tag emo-neutral">Neutral</span>
+                <span class="emotion-tag emo-sad">Sadness</span>
+                <span class="emotion-tag emo-neutral">Neutral</span>
+                <span class="emotion-tag emo-neutral">Neutral</span>
+                <span class="emotion-tag emo-happy">Joy</span>
+              </p>
+            </div>
+            <div class="meta-card dynamic-card">
+              <div class="meta-card-title">Dynamic Emotional Atmosphere Description</div>
+              <p>对话的情绪氛围以迷茫与轻微的自我怀疑开场，逐渐加深为沮丧与脆弱无助，随后在温和的安慰与鼓励中缓缓回升，最终以平静释然与淡淡的振奋作结。</p>
+            </div>
+            <div class="meta-card finegrained-card">
+              <div class="meta-card-title">Fine-grained Description</div>
+              <p>在这段关于学习编程技术遇到困难时如何保持信心和坚持的对话中，一位年轻女性（Speaker 0）与一位年轻男性（Speaker 1）展开了交流。起初，女生以中等音高、低能量、中等语速表达出惊讶的情绪，似乎刚意识到自己在学习编程过程中的严重迟滞；男生随即用同样中等音高但语速极快、情绪中性的方式回应，透露出一种急于厘清问题却不带批评意味的关切。当女生再次发言时，她的音高升高、能量骤降至极低、语速变得极慢，显露出内心的犹豫与无力感，而男生则提高音高、加快语速继续中性地沟通，试图稳住局面。随后女生突然又以中等音高、极低能量却极快语速再次表达惊讶，这种情绪波动源于她可能得知某个令人意外的解决方案或反馈；男生也紧接着以相似的语速和惊讶情绪回应，显示出他被女生的反应所触动。此后两人语气逐渐平稳：女生虽仍维持较低能量，但语速加快并恢复中性情绪，而男生则提升能量至中等水平，以高音高、高语速传递出更积极的energy。整体情绪氛围从最初的焦虑不安逐步转向鼓励支持，这主要得益于男生始终耐心倾听，并通过快速而温和的回应给予正向引导，使女生重新燃起信心，共同聚焦于如何克服编程学习中的瓶颈。</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Carousel Controls -->
+      <div class="carousel-footer">
+        <button class="carousel-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>&#8592;</button>
+        <div class="carousel-dots">
+          <div class="dot active" onclick="goToSlide(0)"></div>
+          <div class="dot" onclick="goToSlide(1)"></div>
+          <div class="dot" onclick="goToSlide(2)"></div>
+          <div class="dot" onclick="goToSlide(3)"></div>
+        </div>
+        <button class="carousel-btn" id="nextBtn" onclick="changeSlide(1)">&#8594;</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ════════════════════════ FOOTER ════════════════════════ -->
+<footer>
+  <p>© 2025 Your Institution · <a href="#">Contact</a> · <a href="#">Paper</a> · <a href="#">GitHub</a></p>
+</footer>
+
+<!-- ════════════════════════ JS ════════════════════════ -->
+<script>
+  /* ── Carousel ── */
+  let current = 0;
+  const cards = document.querySelectorAll('.sample-card');
+  const dots = document.querySelectorAll('.dot');
+  const total = cards.length;
+
+  function updateCarousel() {
+    cards.forEach((c, i) => c.classList.toggle('active', i === current));
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === total - 1;
+  }
+  function changeSlide(dir) {
+    current = Math.max(0, Math.min(total - 1, current + dir));
+    updateCarousel();
+  }
+  function goToSlide(i) {
+    current = i;
+    updateCarousel();
+  }
+
+  /* ── Scroll Reveal ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 60}ms`;
+    observer.observe(el);
+  });
+
+  /* ── Active Nav Highlight ── */
+  const navLinks = document.querySelectorAll('nav a');
+  const sections = document.querySelectorAll('section, #abstract');
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  document.querySelectorAll('[id]').forEach(s => navObserver.observe(s));
+</script>
+
+</body>
+</html>
