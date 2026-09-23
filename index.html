@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Project Name</title>
+  <title>EmoDialog</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -668,8 +668,8 @@
 
 <!-- ════════════════════════ HEADER ════════════════════════ -->
 <header>
-  <h1>GDED</h1>
-  <p class="subtitle">A Large-scale Dataset for Global Dynamic Emotion Description in Dialogue Speech</p>
+  <h1>EmoDialog</h1>
+  <p class="subtitle">A Large-Scale Dataset for Dynamic Emotion Description in Dialogue Speech</p>
 
   <div class="coming-soon-badge">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
@@ -693,7 +693,7 @@
   <section id="abstract">
     <div class="abstract-label">Abstract</div>
     <p>
-      <strong>Understanding empathetic multi-turn dialogues requires accurately tracking complex emotional dynamics and capturing rich paralinguistic cues. However, existing datasets predominantly offer discrete sentence-level emotion labels (e.g., MELD) or coarse text-only summaries (e.g., SAMSum), severely limiting Multimodal Large Language Models (MLLMs) in long-context emotional reasoning. To bridge this gap, we propose GDED, the first large-scale multi-turn speech dataset featuring fine-grained natural language descriptions of dynamic emotional evolution and paralinguistic attributes.To efficiently construct GDED, we design a novel three-stage automated annotation pipeline. At its core, we propose a dynamic emotion recognition framework that integrates prompt engineering, the psychological "Peak-End Rule," and a coarse-to-fine (C2F) training strategy. Specifically, it leverages acoustic arousal to generate Causal Prompts and Trend Prompts, effectively guiding models to capture both micro-level emotion triggers and macro-level emotional shifts while alleviating context degradation. Furthermore, we extract and discretize frame-level acoustic and demographic features, ultimately fusing these multi-dimensional representations into expressive, paragraph-level captions via a Llama3-8B fine-tuned on high-quality human seed data.The resulting bilingual dataset comprises 30,730 dialogues (595 hours) and maps emotional trajectories into seven classic "Emotional Arcs" based on narrative theory. Extensive evaluations demonstrate that our annotation pipeline significantly outperforms state-of-the-art MLLMs (e.g., Qwen-Audio, Audio-Flamingo3). Moreover, downstream experiments confirm that GDED provides crucial dynamic emotional priors, substantially enhancing Emotion Recognition in Conversation (ERC) and Speech Emotion Captioning (SECap) systems.
+      <strong>Understanding empathetic multi-turn dialogues requires modeling dynamic emotional evolution and rich paralinguistic cues. However, existing datasets mainly provide discrete utterance-level emotion labels or coarse text-only summaries, limiting Multimodal Large Language Models in fine-grained emotional reasoning. To address this gap, we introduce EmoDialog, the first large-scale multi-turn speech dataset with natural language descriptions of emotional dynamics and paralinguistic attributes. We develop a three-stage automated annotation pipeline that integrates acoustic analysis, LLM-based emotional reasoning, and human-guided caption generation. Specifically, our framework employs emotion-aware prompting and a coarse-to-fine learning strategy to capture both global emotional transitions and utterance-level emotional states. The resulting bilingual dataset contains 30,730 dialogues (595 hours) with expressive paragraph-level descriptions. Extensive experiments show that our annotation pipeline surpasses state-of-the-art MLLMs. Furthermore, downstream evaluations demonstrate that EmoDialog provides effective emotional priors for improving Emotion Recognition in Conversation and Speech Emotion Captioning tasks. 
     </p>
 
   </section>
@@ -709,13 +709,13 @@
     <!-- Figure 1 -->
     <!-- ★ 把 figure1.png 改成你的图片文件名 -->
     <div class="figure-card reveal">
-      <img class="figure-img" src="/GDED/tu.png" alt="Figure 1" />
+      <img class="figure-img" src="/EmoDialog/tu.png" alt="Figure 1" />
     </div>
 
     <!-- Figure 2 -->
     <!-- ★ 把 figure2.png 改成你的图片文件名 -->
     <div class="figure-card reveal">
-      <img class="figure-img" src="/GDED/biao.png" alt="Figure 2" />
+      <img class="figure-img" src="/EmoDialog/biao.png" alt="Figure 2" />
     </div>
 
   </section>
@@ -724,7 +724,7 @@
   <section id="samples">
     <div class="section-header reveal">
       <span class="section-label">Qualitative Examples</span>
-      <h2>Samples from GDED</h2>
+      <h2>Samples from EmoDialog</h2>
       <p class="section-desc"></p>
     </div>
 
@@ -774,8 +774,8 @@
           <div class="audio-wrapper">
             <!-- Replace src with your actual audio file path -->
             <audio controls>
-              <source src="/GDED/sample1.wav" type="audio/wav" />
-              <source src="/GDED/sample1.mp3" type="audio/mpeg" />
+              <source src="/EmoDialog/sample1.wav" type="audio/wav" />
+              <source src="/EmoDialog/sample1.mp3" type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
           </div>
@@ -861,8 +861,8 @@
           <div class="sample-section-label">Audio</div>
           <div class="audio-wrapper">
             <audio controls>
-              <source src="/GDED/sample2.wav" type="audio/wav" />
-              <source src="/GDED/sample2.mp3" type="audio/mpeg" />
+              <source src="/EmoDialog/sample2.wav" type="audio/wav" />
+              <source src="/EmoDialog/sample2.mp3" type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
           </div>
@@ -949,7 +949,7 @@
           <div class="sample-section-label">Audio</div>
           <div class="audio-wrapper">
             <audio controls>
-              <source src="/GDED/sample3.wav" type="audio/wav" />
+              <source src="/EmoDialog/sample3.wav" type="audio/wav" />
               Your browser does not support the audio element.
             </audio>
           </div>
@@ -1036,7 +1036,7 @@
           <div class="sample-section-label">Audio</div>
           <div class="audio-wrapper">
             <audio controls>
-              <source src="/GDED/sample4.wav" type="audio/wav" />
+              <source src="/EmoDialog/sample4.wav" type="audio/wav" />
               Your browser does not support the audio element.
             </audio>
           </div>
